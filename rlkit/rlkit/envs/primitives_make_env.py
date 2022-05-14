@@ -95,7 +95,7 @@ def make_base_metaworld_env(env_name, env_kwargs=None, use_dm_backend=True):
 
 def make_base_kitchen_env(env_class, env_kwargs):
     from d4rl.kitchen.env_dict import ALL_KITCHEN_ENVIRONMENTS
-
+    print("[DEBUG] EnvClass =", env_class)
     env = ALL_KITCHEN_ENVIRONMENTS[env_class](**env_kwargs)
     return env
 
@@ -126,6 +126,7 @@ def make_env(env_suite, env_name, env_kwargs):
         del env_kwargs_new["image_kwargs"]
 
     if env_suite == "kitchen":
+        print("[DEBUG] EnvName =", env_name)
         env = make_base_kitchen_env(env_name, env_kwargs_new)
     elif env_suite == "metaworld":
         env = make_base_metaworld_env(env_name, env_kwargs_new, use_dm_backend)
