@@ -119,12 +119,12 @@ def video_post_epoch_func_(
     img_size=256,
     mode="eval",
 ):
-    if epoch == -1 or epoch % 100 == 0:
+    if epoch == -1 or epoch % 10 == 0:
         print("Generating Video: ")
         env = algorithm.eval_env
 
         file_path = osp.join(
-            logger.get_snapshot_dir(), mode + "_" + str(epoch) + "_video.avi"
+            logger.get_snapshot_dir(), mode + "_" + "{:0>6d}".format(epoch) + "_video.avi"
         )
 
         img_array1 = []
