@@ -1,4 +1,5 @@
-conda activate IKEA_RAPS
+source ~/.zshrc
+conda activate IKEA_XSTAR
 export MUJOCO_GL='egl'
 export MKL_THREADING_LAYER=GNU
 export D4RL_SUPPRESS_IMPORT_ERROR='1'

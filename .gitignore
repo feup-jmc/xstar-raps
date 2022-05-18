@@ -1,3 +1,7 @@
+# Other things
+.setup_xstar.sh
+greplogs/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
