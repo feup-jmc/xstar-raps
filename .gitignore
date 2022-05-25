@@ -1,6 +1,7 @@
 # Other things
 .setup_xstar.sh
 greplogs/
+QuickAccessEDITONLY/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
