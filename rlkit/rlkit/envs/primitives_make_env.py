@@ -99,6 +99,9 @@ def make_base_kitchen_env(env_class, env_kwargs):
     env = ALL_KITCHEN_ENVIRONMENTS[env_class](**env_kwargs)
     return env
 
+def make_base_ikea_env(env_name, kwargs):
+    import method.robot_learning.environments as IKEAenv
+    return IKEAenv.make_env(env_name, kwargs)
 
 def make_env(env_suite, env_name, env_kwargs):
     from rlkit.envs.primitives_wrappers import (
@@ -136,6 +139,8 @@ def make_env(env_suite, env_name, env_kwargs):
             )
     elif env_suite == "robosuite":
         env = make_base_robosuite_env(env_name, env_kwargs_new, use_dm_backend)
+    elif env_suite == "IKEA":
+        env = make_base_ikea_env(env_name, env_kwargs_new)
     if unflatten_images:
         env = ImageUnFlattenWrapper(env)
 
