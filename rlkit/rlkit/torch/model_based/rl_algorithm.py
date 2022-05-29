@@ -259,19 +259,24 @@ class BatchRLAlgorithm(BaseRLAlgorithm, metaclass=abc.ABCMeta):
     def _train(self):
         st = time.time()
         if self.min_num_steps_before_training > 0:
+            print("[DEBUG] Init expl start")
             init_expl_paths = self.expl_data_collector.collect_new_paths(
                 self.max_path_length,
                 self.min_num_steps_before_training,
                 runtime_policy=self.pretrain_policy,
             )
+            print("[DEBUG] Init expl end")
             self.replay_buffer.add_paths(init_expl_paths)
+            print("[DEBUG] Init expl add paths")
             self.expl_data_collector.end_epoch(-1)
+            print("[DEBUG] Init expl end epoch")
         self.total_train_expl_time += time.time() - st
 
         for epoch in gt.timed_for(
             range(self._start_epoch, self.num_epochs),
             save_itrs=True,
         ):
+            print("[DEBUG] Collect paths")
             self.eval_data_collector.collect_new_paths(
                 self.max_path_length,
                 self.num_eval_steps_per_epoch,
@@ -295,7 +300,7 @@ class BatchRLAlgorithm(BaseRLAlgorithm, metaclass=abc.ABCMeta):
                     self.num_expl_steps_per_train_loop,
                 )
                 gt.stamp("exploration sampling", unique=False)
-
+                print("[DEBUG] Adding paths to buffer")
                 self.replay_buffer.add_paths(new_expl_paths)
                 gt.stamp("data storing", unique=False)
             self.total_train_expl_time += time.time() - st
