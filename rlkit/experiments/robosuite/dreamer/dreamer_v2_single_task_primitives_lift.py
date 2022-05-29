@@ -72,7 +72,7 @@ if __name__ == "__main__":
         use_raw_actions=False,
         env_suite="robosuite",
         env_kwargs=dict(
-            robots="Panda",
+            robots="Sawyer",
             has_renderer=False,
             has_offscreen_renderer=False,
             use_camera_obs=False,

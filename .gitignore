@@ -1,6 +1,7 @@
 # New
 *.swp
-.xstar_source
+.setup_xstar.sh
+greplogs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

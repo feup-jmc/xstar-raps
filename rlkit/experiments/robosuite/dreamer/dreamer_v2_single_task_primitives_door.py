@@ -13,16 +13,16 @@ from rlkit.torch.model_based.dreamer.experiments.kitchen_dreamer import experime
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--exp_prefix", type=str, default="test")
-    parser.add_argument("--num_seeds", type=int, default=1)
-    parser.add_argument("--mode", type=str, default="local")
-    parser.add_argument("--env", type=str, default="")
-    parser.add_argument("--debug", action="store_true", default=False)
+    parser.add_argument("--exp_prefix", type=str, default="test")       #keep and port
+    parser.add_argument("--num_seeds", type=int, default=1)             #remove multiple seed funct.
+    parser.add_argument("--mode", type=str, default="local")            #will bypass with here_no_doodad as is always the case
+    parser.add_argument("--env", type=str, default="")                  #handled by scparse
+    parser.add_argument("--debug", action="store_true", default=False)  #keep and port
     args = parser.parse_args()
     if args.debug:
-        algorithm_kwargs = dict(
-            num_epochs=5,
-            num_eval_steps_per_epoch=10,
+        algorithm_kwargs = dict(                                        #keep whatever there isn't an equivalent for and set defaults/consts
+            num_epochs=5,                                               
+            num_eval_steps_per_epoch=10,                                
             num_expl_steps_per_train_loop=50,
             min_num_steps_before_training=10,
             num_pretrain_steps=10,
@@ -32,9 +32,9 @@ if __name__ == "__main__":
             max_path_length=5,
         )
         exp_prefix = "test" + args.exp_prefix
-    else:
+    else:                                                               #keep dict structure for compatiblity, algorithm_kwargs and variant are VERY IMPORTANT
         algorithm_kwargs = dict(
-            num_epochs=1000,
+            num_epochs=1000,                                            #these vals can be infered, maintaind or fed in CLI so should not be too problematic
             num_eval_steps_per_epoch=30,
             min_num_steps_before_training=2500,
             num_pretrain_steps=100,
@@ -48,17 +48,17 @@ if __name__ == "__main__":
     variant = dict(
         algorithm="DreamerV2",
         version="normal",
-        replay_buffer_size=int(5e5),
+        replay_buffer_size=int(5e5),                                    #similar to replay buffer in TSTAR/GAIL? Does it matter?
         algorithm_kwargs=algorithm_kwargs,
-        env_name="Door",
+        env_name="Door",                                                #using table_lack ok here? 
         use_raw_actions=False,
-        env_suite="robosuite",
+        env_suite="robosuite",                                          #is it fine with using IKEA here?
         env_kwargs=dict(
-            robots="Panda",
+            robots="Panda",                                             #probably ok with sawyer, will it get confused between source?
             has_renderer=False,
             has_offscreen_renderer=False,
-            use_camera_obs=False,
-            camera_heights=64,
+            use_camera_obs=False,                                       #should camera settings be similar to TSTAR? Is it fine if they are different? (different algo after all)
+            camera_heights=64,                                          #pixels? size of with TSTAR (ffs, really hard to find)? 
             camera_widths=64,
             controller_configs={
                 "type": "OSC_POSE",
